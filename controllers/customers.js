@@ -52,7 +52,13 @@ const getSingleCustomer = async (req, res) => {
 
 const createCustomer = async (req, res) => {
   const Customer = {
-    Name: req.body.Name
+    username: req.body.username,
+    name: req.body.name,
+    email: req.body.email,
+    birthday: req.body.birthday,
+    address: req.body.address,
+    phone: req.body.phone,
+    active: req.body.boolean
   };
   const response = await mongodb
     .getDatabase()

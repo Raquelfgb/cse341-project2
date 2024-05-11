@@ -60,13 +60,9 @@ const getSingleAccount = async (req, res) => {
 
 const createAccount = async (req, res) => {
   const Account = {
-    "first name": req.body['first name'],
-    "last name": req.body['last name'],
-    email: req.body.email,
-    gender: req.body.gender,
-    birthday: req.body.birthday,
-    address: req.body.address,
-    phone: req.body.phone
+    account_id: req.body.id,
+    limit: req.body.limit,
+    products: req.body.product,
 
   };
   const response = await mongodb
