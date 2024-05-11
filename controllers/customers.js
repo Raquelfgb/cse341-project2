@@ -1,10 +1,10 @@
-const mongodb = require('../data/database');
+const mongodb = require('../database/database');
 const ObjectId = require('mongodb').ObjectId;
 
-const DATABASE = "PROJECT2";
-const COLLECTION_NAME = "Store";
+const DATABASE = "sample_analytics";
+const COLLECTION_NAME = "customers";
 
-const getAllStore = async (req, res) => {
+const getAllCustomer = async (req, res) => {
   const result = await mongodb
     .getDatabase()
     .db(DATABASE)
@@ -29,13 +29,13 @@ const getAllStore = async (req, res) => {
   // });
 };
 
-const getSingleStore = async (req, res) => {
-  const storeId = new ObjectId(req.params.id);
+const getSingleCustomer = async (req, res) => {
+  const CustomerId = new ObjectId(req.params.id);
   const result = await mongodb
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .find({ _id: storeId });
+    .find({ _id: CustomerId });
   result.toArray((err, result) => {
     if (err) {
       res.status(400).json({ message: err });
@@ -50,15 +50,15 @@ const getSingleStore = async (req, res) => {
   // });
 };
 
-const createStore = async (req, res) => {
-  const store = {
+const createCustomer = async (req, res) => {
+  const Customer = {
     Name: req.body.Name
   };
   const response = await mongodb
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .insertOne(store);
+    .insertOne(Customer);
 
   console.log('response: ' + JSON.stringify(response));
   if (response.acknowledged == true) {
@@ -67,14 +67,14 @@ const createStore = async (req, res) => {
     res.status(500).json(response.error || 'Failed to create user.');
   }
 };
-const updateStore = async (req, res) => {
-  const storeId = new ObjectId(req.params.id);
-  const store = req.body.employeeIds
+const updateCustomer = async (req, res) => {
+  const CustomerId = new ObjectId(req.params.id);
+  const Customer = req.body.accountIds
   const response = await mongodb
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .replaceOne({ _id: storeId }, store);
+    .replaceOne({ _id: CustomerId }, Customer);
   console.log('response: ' + JSON.stringify(response));
   if (response.modifiedCount > 0) {
     res.status(204).send();
@@ -82,14 +82,14 @@ const updateStore = async (req, res) => {
     res.status(500).json(response.error || 'Failed to update user.');
   }
 };
-const deleteStore = async (req, res) => {
-  const storeId = new ObjectId(req.params.id);
+const deleteCustomer = async (req, res) => {
+  const CustomerId = new ObjectId(req.params.id);
 
   const response = await mongodb
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .deleteOne({ _id: storeId });
+    .deleteOne({ _id: CustomerId });
   console.log('response: ' + JSON.stringify(response));
   if (response.deletedCount > 0) {
     res.status(204).send();
@@ -99,9 +99,9 @@ const deleteStore = async (req, res) => {
 };
 
 module.exports = {
-  getAllStore,
-  getSingleStore,
-  createStore,
-  updateStore,
-  deleteStore
+  getAllCustomer,
+  getSingleCustomer,
+  createCustomer,
+  updateCustomer,
+  deleteCustomer
 };

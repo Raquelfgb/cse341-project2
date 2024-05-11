@@ -1,14 +1,11 @@
 const validator = require('../helpers/validate');
 
-const client = (req, res, next) => {
+const account = (req, res, next) => {
   const validationRule = {
-    "first name": 'required|string',
-    "last name": 'required|string',
-    email: 'required|email',
-    gender: 'required|string',
-    birthday: 'string',
-    address: 'string',
-    phone: 'string'
+  
+    account_id: 'required|number',
+    limit: 'required|number',
+    products: 'array'
   };
  
 
@@ -25,13 +22,19 @@ const client = (req, res, next) => {
   });
 };
 
-const store = (req, res, next) => {
+const customer = (req, res, next) => {
   let passValidation = true;
   const validationRule = {
-    clientIds: 'array'
+    username: 'required|string',
+    name: 'required|string',
+    address: 'string',
+    birthdate: 'datetime',
+    email: 'string',
+    active: 'boolean',
+    accounts: 'array'
   }
 
-  req.body.clientIds.map(id => {
+  req.body.accountIds.map(id => {
     passValidation = (typeof id === 'string' || myVar instanceof String) ?
       true : false;
   });
@@ -54,6 +57,6 @@ const store = (req, res, next) => {
 
 
 module.exports = {
-  client,
-  store
+  account,
+  customer
 };

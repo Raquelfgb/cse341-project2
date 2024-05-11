@@ -1,11 +1,11 @@
-const mongodb = require('../data/database');
+const mongodb = require('../database/database');
 const ObjectId = require('mongodb').ObjectId;
 
-const DATABASE = "PROJECT2";
-const COLLECTION_NAME = "Client";
+const DATABASE = "sample_analytics";
+const COLLECTION_NAME = "accounts";
 
-const getAllClient = async (req, res) => {
-  console.log("getAllClient1");
+const getAllAccount = async (req, res) => {
+  console.log("getAllAccount");
   const result = await mongodb
     .getDatabase()
     .db(DATABASE)
@@ -37,13 +37,13 @@ const getAllClient = async (req, res) => {
   // });
 };
 
-const getSingleClient = async (req, res) => {
-  const clientId = new ObjectId(req.params.id);
+const getSingleAccount = async (req, res) => {
+  const AccountId = new ObjectId(req.params.id);
   const result = await mongodb
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .find({ _id: clientId });
+    .find({ _id: AccountId });
   result.toArray((err, result) => {
     if (err) {
       res.status(400).json({ message: err });
@@ -58,8 +58,8 @@ const getSingleClient = async (req, res) => {
   // });
 };
 
-const createClient = async (req, res) => {
-  const client = {
+const createAccount = async (req, res) => {
+  const Account = {
     "first name": req.body['first name'],
     "last name": req.body['last name'],
     email: req.body.email,
@@ -73,7 +73,7 @@ const createClient = async (req, res) => {
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .insertOne(client);
+    .insertOne(Account);
 
   console.log('response: ' + JSON.stringify(response));
   if (response.acknowledged == true) {
@@ -82,9 +82,9 @@ const createClient = async (req, res) => {
     res.status(500).json(response.error || 'Failed to create user.');
   }
 };
-const updateClient = async (req, res) => {
-  const clientId = new ObjectId(req.params.id);
-  const client = {
+const updateAccount = async (req, res) => {
+  const AccountId = new ObjectId(req.params.id);
+  const Account = {
     firstName: req.body['first name'],
     lastName: req.body['last name'],
     email: req.body.email,
@@ -97,7 +97,7 @@ const updateClient = async (req, res) => {
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .replaceOne({ _id: clientId }, client);
+    .replaceOne({ _id: AccountId }, Account);
   console.log('response: ' + JSON.stringify(response));
   if (response.modifiedCount > 0) {
     res.status(204).send();
@@ -105,14 +105,14 @@ const updateClient = async (req, res) => {
     res.status(500).json(response.error || 'Failed to update user.');
   }
 };
-const deleteClient = async (req, res) => {
-  const clientId = new ObjectId(req.params.id);
+const deleteAccount = async (req, res) => {
+  const AccountId = new ObjectId(req.params.id);
 
   const response = await mongodb
     .getDatabase()
     .db(DATABASE)
     .collection(COLLECTION_NAME)
-    .deleteOne({ _id: clientId });
+    .deleteOne({ _id: AccountId });
   console.log('response: ' + JSON.stringify(response));
   if (response.deletedCount > 0) {
     res.status(204).send();
@@ -122,9 +122,9 @@ const deleteClient = async (req, res) => {
 };
 
 module.exports = {
-  getAllClient,
-  getSingleClient,
-  createClient,
-  updateClient,
-  deleteClient
+  getAllAccount,
+  getSingleAccount,
+  createAccount,
+  updateAccount,
+  deleteAccount
 };
