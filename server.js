@@ -1,5 +1,5 @@
 const express = require('express');
-const mongodb = require('./data/database');
+const mongodb = require('./database/database');
 const app = express();
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
