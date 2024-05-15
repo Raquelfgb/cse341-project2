@@ -5,7 +5,7 @@ const doc = {
     description: 'Contacts API'
   },
   host: 'cse341-project2-8vxu.onrender.com',
-  schemes: ['http,https']
+  schemes: ['https','http']
 };
 const outputFile = './swagger.json';
 const endpointsFiles = ['./routes/index.js'];
