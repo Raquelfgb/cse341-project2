@@ -3,8 +3,8 @@ const validator = require('../helpers/validate');
 const account = (req, res, next) => {
   const validationRule = {
   
-    account_id: 'required|number',
-    limit: 'required|number',
+    account_id: 'required|integer',
+    limit: 'required|integer',
     products: 'array'
   };
  

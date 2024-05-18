@@ -25,12 +25,12 @@ app
    );
    res.setHeader(
     'Access-Control-Allow-Methods', 
-    'GET,POST,PUT,DELETE,OPTIONS');
+    'GET,POST,PUT,PATCH,DELETE,OPTIONS');
   next();
 })
 .use(cors({ methods: ['GET', 'POST', 'DELETE', 'UPODATE', 'PUT', 'PATCH']}))
 .use(cors({ origin: '*'}))
-.use('/', require('./routes'));
+.use('/', require('./routes/index.js'));
 
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
